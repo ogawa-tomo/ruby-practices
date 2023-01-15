@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 COLUMN_NUM = 3
 
 def main
@@ -8,6 +10,7 @@ def main
     (1..COLUMN_NUM).each do |c|
       file_idx = (rows_num * (c - 1)) + r - 1
       next if file_idx >= files.length
+      
       print_file(files[file_idx], column_width)
     end
     puts ''
@@ -15,7 +18,7 @@ def main
 end
 
 def get_column_width(files)
-  files.max_by { |f| f.length }.length + 1
+  files.max_by(&:length).length + 1
 end
 
 def print_file(file, column_width)
@@ -24,7 +27,7 @@ def print_file(file, column_width)
 end
 
 def get_rows_num(files)
-  if files.length % COLUMN_NUM == 0
+  if (files.length % COLUMN_NUM).zero?
     files.length / COLUMN_NUM
   else
     (files.length / COLUMN_NUM) + 1
