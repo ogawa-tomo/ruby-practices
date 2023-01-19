@@ -4,11 +4,7 @@ require 'date'
 require 'optparse'
 
 def print_day(day)
-  if day < 10
-    print " #{day} "
-  else
-    print "#{day} "
-  end
+  print day.to_s.rjust(2) + ' '
 end
 
 def print_space_before_first_day(date)
