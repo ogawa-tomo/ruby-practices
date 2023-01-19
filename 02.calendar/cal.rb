@@ -31,11 +31,9 @@ year = params[:year] || Date.today.year
 puts "     #{month}月 #{year}"
 puts '日 月 火 水 木 金 土'
 
-month_last_day = Date.new(year, month, -1).day
-(1..month_last_day).each do |day|
-  date = Date.new(year, month, day)
+(Date.new(year, month, 1)..Date.new(year, month, -1)).each do |date|
   print_space_before_first_day(date) if date.day == 1
-  print_day(day)
+  print_day(date.day)
   puts '' if date.saturday?
 end
 
