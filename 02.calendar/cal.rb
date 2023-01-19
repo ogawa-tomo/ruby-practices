@@ -29,16 +29,8 @@ opt.on('-y VAL') do |v|
 end
 opt.parse!(ARGV, into: params)
 
-month = if params[:month]
-          params[:month]
-        else
-          Date.today.month
-        end
-year = if params[:year]
-         params[:year]
-       else
-         Date.today.year
-       end
+month = params[:month] || Date.today.month
+year = params[:year] || Date.today.year
 
 puts "     #{month}月 #{year}"
 puts '日 月 火 水 木 金 土'
