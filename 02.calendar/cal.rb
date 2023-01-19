@@ -12,19 +12,7 @@ def print_day(day)
 end
 
 def print_space_before_first_day(date)
-  if date.monday?
-    print ' ' * 3
-  elsif date.tuesday?
-    print ' ' * 6
-  elsif date.wednesday?
-    print ' ' * 9
-  elsif date.thursday?
-    print ' ' * 12
-  elsif date.friday?
-    print ' ' * 15
-  elsif date.saturday?
-    print ' ' * 18
-  end
+  print ' ' * 3 * date.wday
 end
 
 opt = OptionParser.new
