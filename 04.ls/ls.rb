@@ -10,7 +10,7 @@ def main
     (1..COLUMN_NUM).each do |c|
       file_idx = (rows_num * (c - 1)) + r - 1
       next if file_idx >= files.length
-      
+
       print_file(files[file_idx], column_width)
     end
     puts ''
