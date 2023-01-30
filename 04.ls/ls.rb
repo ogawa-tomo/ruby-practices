@@ -27,11 +27,7 @@ def print_file(file, column_width)
 end
 
 def get_rows_num(files)
-  if (files.length % COLUMN_NUM).zero?
-    files.length / COLUMN_NUM
-  else
-    (files.length / COLUMN_NUM) + 1
-  end
+  files.length.fdiv(COLUMN_NUM).ceil
 end
 
 main
