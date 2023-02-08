@@ -1,9 +1,12 @@
+#!/usr/bin/env ruby
 # frozen_string_literal: true
+
+require 'optparse'
 
 COLUMN_NUM = 3
 
-def main
-  files = Dir.glob('*')
+def main(params)
+  files = get_files(params)
   rows_num = get_rows_num(files)
   column_width = get_column_width(files)
   (1..rows_num).each do |r|
@@ -15,6 +18,10 @@ def main
     end
     puts ''
   end
+end
+
+def get_files(params)
+  params[:a] ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
 end
 
 def get_column_width(files)
@@ -30,4 +37,9 @@ def get_rows_num(files)
   files.length.fdiv(COLUMN_NUM).ceil
 end
 
-main
+opt = OptionParser.new
+params = {}
+opt.on('-a') { |v| params[:a] = v }
+opt.parse!(ARGV)
+
+main(params)
