@@ -5,7 +5,12 @@ require 'optparse'
 
 COLUMN_NUM = 3
 
-def main(params)
+def main
+  opt = OptionParser.new
+  params = {}
+  opt.on('-a') { |v| params[:a] = v }
+  opt.parse!(ARGV)
+
   files = get_files(params)
   rows_num = get_rows_num(files)
   column_width = get_column_width(files)
@@ -37,9 +42,4 @@ def get_rows_num(files)
   files.length.fdiv(COLUMN_NUM).ceil
 end
 
-opt = OptionParser.new
-params = {}
-opt.on('-a') { |v| params[:a] = v }
-opt.parse!(ARGV)
-
-main(params)
+main
