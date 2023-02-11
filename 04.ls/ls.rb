@@ -11,7 +11,7 @@ def main
   opt.on('-a') { |v| params[:a] = v }
   opt.parse!(ARGV)
 
-  files = get_files(params)
+  files = get_files(params[:a])
   rows_num = get_rows_num(files)
   column_width = get_column_width(files)
   (1..rows_num).each do |r|
@@ -25,8 +25,8 @@ def main
   end
 end
 
-def get_files(params)
-  params[:a] ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
+def get_files(params_a)
+  params_a ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
 end
 
 def get_column_width(files)
