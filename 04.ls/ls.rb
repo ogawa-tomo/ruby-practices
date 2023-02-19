@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
+require 'etc'
 
 COLUMN_NUM = 3
 
@@ -22,6 +23,10 @@ def output_1columns(files)
     print_mode(stat.mode)
     print (' ')
     print(stat.nlink)
+    print ' '
+    print Etc.getpwuid(stat.uid).name
+    print ' '
+    print Etc.getgrgid(stat.gid).name
     puts " #{file}"
   end
 end
