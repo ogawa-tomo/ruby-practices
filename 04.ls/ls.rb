@@ -19,7 +19,18 @@ def output_1columns(files)
   files.each do |file|
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
+    print_mode(stat.mode)
     puts " #{file}"
+  end
+end
+
+def print_mode(mode)
+  mode = sprintf("%o", mode)[-3..-1]
+  mode.each_char do |char|
+    num = char.to_i
+    num >= 4 ? print('r') : print('-')
+    num % 4 >= 2 ? print('w') : print('-')
+    num % 2 ==1 ? print('x') : print('-')
   end
 end
 
