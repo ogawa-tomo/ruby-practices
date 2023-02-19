@@ -21,7 +21,7 @@ def output_1columns(files)
   files.each do |file|
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
-    print_mode(stat.mode) 
+    print get_mode_str(sprintf("%o", stat.mode)[-3..-1]) 
     print ' '
     print stat.nlink
     print ' '
@@ -37,14 +37,15 @@ def output_1columns(files)
   end
 end
 
-def print_mode(mode)
-  mode = sprintf("%o", mode)[-3..-1]
+def get_mode_str(mode)
+  result = []
   mode.each_char do |char|
     num = char.to_i
-    num >= 4 ? print('r') : print('-')
-    num % 4 >= 2 ? print('w') : print('-')
-    num % 2 ==1 ? print('x') : print('-')
+    num >= 4 ? result << 'r' : result << '-'
+    num % 4 >= 2 ? result << 'w' : result << '-'
+    num % 2 ==1 ? result << 'x' : result << '-'
   end
+  result.join
 end
 
 def output_3columns(files)
