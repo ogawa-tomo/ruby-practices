@@ -21,7 +21,7 @@ def output_long(files)
   files.each do |file|
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
-    print get_mode_str(sprintf("%o", stat.mode)[-3..-1]) 
+    print get_mode_str(format('%o', stat.mode)[-3..])
     print ' '
     print stat.nlink
     print ' '
@@ -41,9 +41,9 @@ def get_mode_str(mode)
   result = []
   mode.each_char do |char|
     num = char.to_i
-    num >= 4 ? result << 'r' : result << '-'
-    num % 4 >= 2 ? result << 'w' : result << '-'
-    num % 2 ==1 ? result << 'x' : result << '-'
+    result << (num >= 4 ? 'r' : '-')
+    result << (num % 4 >= 2 ? 'w' : '-')
+    result << ((num % 2).odd? ? 'x' : '-')
   end
   result.join
 end
