@@ -1,9 +1,27 @@
+#!/usr/bin/env ruby
 # frozen_string_literal: true
+
+require 'optparse'
 
 COLUMN_NUM = 3
 
 def main
+  opt = OptionParser.new
+  params = {}
+  opt.on('-l') { |v| params[:l] = v }
+  opt.parse!(ARGV)
+
   files = Dir.glob('*')
+  params[:l] ? output_1columns(files) : output_3columns(files)
+end
+
+def output_1columns(files)
+  files.each do |file|
+    puts file
+  end
+end
+
+def output_3columns(files)
   rows_num = get_rows_num(files)
   column_width = get_column_width(files)
   (1..rows_num).each do |r|
