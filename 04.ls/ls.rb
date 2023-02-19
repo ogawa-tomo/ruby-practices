@@ -20,9 +20,9 @@ def output_1columns(files)
   files.each do |file|
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
-    print_mode(stat.mode)
+    print_mode(stat.mode) 
     print ' '
-    print(stat.nlink)
+    print stat.nlink
     print ' '
     print Etc.getpwuid(stat.uid).name
     print ' '
