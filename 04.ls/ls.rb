@@ -13,10 +13,10 @@ def main
   opt.parse!(ARGV)
 
   files = Dir.glob('*')
-  params[:l] ? output_1columns(files) : output_3columns(files)
+  params[:l] ? output_long(files) : output_default(files)
 end
 
-def output_1columns(files)
+def output_long(files)
   puts "total #{files.map { |file| File.stat(file).blksize }.sum / 1024}"
   files.each do |file|
     stat = File.stat(file)
@@ -48,7 +48,7 @@ def get_mode_str(mode)
   result.join
 end
 
-def output_3columns(files)
+def output_default(files)
   rows_num = get_rows_num(files)
   column_width = get_column_width(files)
   (1..rows_num).each do |r|
