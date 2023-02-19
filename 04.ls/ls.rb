@@ -17,7 +17,9 @@ end
 
 def output_1columns(files)
   files.each do |file|
-    puts file
+    stat = File.stat(file)
+    stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
+    puts " #{file}"
   end
 end
 
