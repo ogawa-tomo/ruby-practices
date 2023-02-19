@@ -17,6 +17,7 @@ def main
 end
 
 def output_1columns(files)
+  puts "total #{files.map { |file| File.stat(file).blksize }.sum / 1024}"
   files.each do |file|
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
