@@ -20,6 +20,8 @@ def output_1columns(files)
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
     print_mode(stat.mode)
+    print (' ')
+    print(stat.nlink)
     puts " #{file}"
   end
 end
