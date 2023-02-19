@@ -28,6 +28,8 @@ def output_1columns(files)
     print ' '
     print Etc.getgrgid(stat.gid).name
     print ' '
+    print stat.size
+    print ' '
     puts file
   end
 end
