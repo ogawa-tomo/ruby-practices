@@ -30,6 +30,8 @@ def output_1columns(files)
     print ' '
     print stat.size
     print ' '
+    print stat.ctime.strftime('%b %d %H:%M')
+    print ' '
     puts file
   end
 end
