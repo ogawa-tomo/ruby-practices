@@ -21,13 +21,14 @@ def output_1columns(files)
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
     print_mode(stat.mode)
-    print (' ')
+    print ' '
     print(stat.nlink)
     print ' '
     print Etc.getpwuid(stat.uid).name
     print ' '
     print Etc.getgrgid(stat.gid).name
-    puts " #{file}"
+    print ' '
+    puts file
   end
 end
 
