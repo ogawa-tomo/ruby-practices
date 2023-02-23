@@ -17,6 +17,7 @@ def main
 end
 
 def output_long(files)
+  max_digit_file_link = files.map { |file| File.stat(file).nlink }.max.to_s.length
   max_word_count_file_owner = files.map { |file| Etc.getpwuid(File.stat(file).uid).name.size }.max
   max_word_count_file_group = files.map { |file| Etc.getgrgid(File.stat(file).gid).name.size }.max
   max_digit_file_size = files.map { |file| File.stat(file).size }.max.to_s.length
@@ -27,7 +28,7 @@ def output_long(files)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
     print get_mode_str(format('%o', stat.mode)[-3..])
     print ' '
-    print stat.nlink
+    print stat.nlink.to_s.rjust(max_digit_file_link)
     print ' '
     print Etc.getpwuid(stat.uid).name.ljust(max_word_count_file_owner)
     print ' '
