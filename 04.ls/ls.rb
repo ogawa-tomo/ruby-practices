@@ -19,6 +19,8 @@ end
 def output_long(files)
   max_word_count_file_owner = files.map { |file| Etc.getpwuid(File.stat(file).uid).name.size }.max
   max_word_count_file_group = files.map { |file| Etc.getgrgid(File.stat(file).gid).name.size }.max
+  max_digit_file_size = files.map { |file| File.stat(file).size }.max.to_s.length
+
   puts "total #{files.map { |file| File.stat(file).blksize }.sum / 1024}"
   files.each do |file|
     stat = File.stat(file)
@@ -31,7 +33,7 @@ def output_long(files)
     print ' '
     print Etc.getgrgid(stat.gid).name.ljust(max_word_count_file_group)
     print ' '
-    print stat.size
+    print stat.size.to_s.rjust(max_digit_file_size)
     print ' '
     print stat.ctime.strftime('%b %d %H:%M')
     print ' '
