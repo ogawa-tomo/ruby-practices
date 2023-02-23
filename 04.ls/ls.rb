@@ -17,6 +17,8 @@ def main
 end
 
 def output_long(files)
+  max_word_count_file_owner = files.map { |file| Etc.getpwuid(File.stat(file).uid).name.size }.max
+  max_word_count_file_group = files.map { |file| Etc.getgrgid(File.stat(file).gid).name.size }.max
   puts "total #{files.map { |file| File.stat(file).blksize }.sum / 1024}"
   files.each do |file|
     stat = File.stat(file)
@@ -25,9 +27,9 @@ def output_long(files)
     print ' '
     print stat.nlink
     print ' '
-    print Etc.getpwuid(stat.uid).name
+    print Etc.getpwuid(stat.uid).name.ljust(max_word_count_file_owner)
     print ' '
-    print Etc.getgrgid(stat.gid).name
+    print Etc.getgrgid(stat.gid).name.ljust(max_word_count_file_group)
     print ' '
     print stat.size
     print ' '
