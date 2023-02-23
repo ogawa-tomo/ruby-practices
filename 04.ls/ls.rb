@@ -41,9 +41,9 @@ def get_mode_str(mode)
   result = []
   mode.each_char do |char|
     num = char.to_i
-    result << (num >= 4 ? 'r' : '-')
-    result << (num % 4 >= 2 ? 'w' : '-')
-    result << ((num % 2).odd? ? 'x' : '-')
+    result << (num & 0b100 == 0b100 ? 'r' : '-')
+    result << (num & 0b010 == 0b010 ? 'w' : '-')
+    result << (num & 0b001 == 0b001 ? 'x' : '-')
   end
   result.join
 end
