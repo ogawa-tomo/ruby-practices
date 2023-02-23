@@ -26,19 +26,15 @@ def output_long(files)
   files.each do |file|
     stat = File.stat(file)
     stat.ftype == 'file' ? print('-') : print(stat.ftype[0])
-    print get_mode_str(format('%o', stat.mode)[-3..])
-    print ' '
-    print stat.nlink.to_s.rjust(max_digit_file_link)
-    print ' '
-    print Etc.getpwuid(stat.uid).name.ljust(max_word_count_file_owner)
-    print ' '
-    print Etc.getgrgid(stat.gid).name.ljust(max_word_count_file_group)
-    print ' '
-    print stat.size.to_s.rjust(max_digit_file_size)
-    print ' '
-    print stat.ctime.strftime('%b %d %H:%M')
-    print ' '
-    puts file
+    puts [
+      get_mode_str(format('%o', stat.mode)[-3..]),
+      stat.nlink.to_s.rjust(max_digit_file_link),
+      Etc.getpwuid(stat.uid).name.ljust(max_word_count_file_owner),
+      Etc.getgrgid(stat.gid).name.ljust(max_word_count_file_group),
+      stat.size.to_s.rjust(max_digit_file_size),
+      stat.ctime.strftime('%b %d %H:%M'),
+      file
+    ].join(' ')
   end
 end
 
