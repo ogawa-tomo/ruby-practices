@@ -20,7 +20,7 @@ end
 
 def get_files(all, reverse)
   files = all ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
-  files.reverse! if reverse 
+  files.reverse! if reverse
   files
 end
 
