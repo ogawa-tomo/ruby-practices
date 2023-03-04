@@ -13,7 +13,7 @@ def main
   opt.on('-l') { |v| params[:l] = v }
   opt.parse!(ARGV)
 
-  files = Dir.glob('*')
+  files = get_files(params[:a])
   rows_num = get_rows_num(files)
   column_width = get_column_width(files)
   (1..rows_num).each do |r|
@@ -25,6 +25,10 @@ def main
     end
     puts ''
   end
+end
+
+def get_files(all)
+  all ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
 end
 
 def get_column_width(files)
