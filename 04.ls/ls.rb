@@ -67,7 +67,7 @@ def output_long(files)
       Etc.getpwuid(stat.uid).name.ljust(max_word_count_file_owner),
       Etc.getgrgid(stat.gid).name.ljust(max_word_count_file_group),
       stat.size.to_s.rjust(max_digit_file_size),
-      stat.ctime.strftime('%b %d %H:%M'),
+      stat.ctime.strftime('%b %e %H:%M'),
       file
     ].join(' ')
   end
