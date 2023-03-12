@@ -27,7 +27,7 @@ def output_files_info(files_data)
     files_data.map { |file_data| file_data[:content].split.length }.sum,
     files_data.map { |file_data| file_data[:content].bytesize }.sum,
     'total'
-  ].join(' ')
+  ].join(' ') if files_data.length > 1
 end
 
 main
