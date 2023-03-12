@@ -1,18 +1,25 @@
 
 def main
-  ARGV.each do |file_path|
-    output_file_info(file_path)
+  files_data = ARGV.map do |file_path|
+    content = nil
+    File.open(file_path) do |file|
+      content = file.read
+    end
+    {
+      name: file_path,
+      content: content
+    }
   end
+  output_files_info(files_data)
 end
 
-def output_file_info(file_path)
-  File.open(file_path, 'r') do |file|
-    content = file.read
+def output_files_info(files_data)
+  files_data.each do |file_data|
     puts [
-      content.lines.length,
-      content.split.length,
-      content.bytesize,
-      file.path
+      file_data[:content].lines.length,
+      file_data[:content].split.length,
+      file_data[:content].bytesize,
+      file_data[:name]
     ].join(' ')
   end
 end
