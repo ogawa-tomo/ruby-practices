@@ -25,20 +25,19 @@ def output_files_info(files_data, options)
   file_size_digit = get_total_file_size(files_data).to_s.length
 
   files_data.each do |file_data|
-    puts [
-      output_line_count?(options) ? file_data[:content].lines.length.to_s.rjust(line_count_digit) : '',
-      output_word_count?(options) ? file_data[:content].split.length.to_s.rjust(word_count_digit) : '',
-      output_file_size?(options) ? file_data[:content].bytesize.to_s.rjust(file_size_digit) : '',
-      file_data[:name]
-    ].join(' ')
+    print file_data[:content].lines.length.to_s.rjust(line_count_digit) + ' ' if output_line_count?(options)
+    print file_data[:content].split.length.to_s.rjust(word_count_digit) + ' ' if output_word_count?(options)
+    print file_data[:content].bytesize.to_s.rjust(file_size_digit) + ' ' if output_file_size?(options)
+    print file_data[:name]
+    puts ''
   end
 
-  puts [
-    output_line_count?(options) ? get_total_line_count(files_data).to_s.rjust(line_count_digit) : '',
-    output_word_count?(options) ? get_total_word_count(files_data).to_s.rjust(word_count_digit) : '',
-    output_file_size?(options) ? get_total_file_size(files_data).to_s.rjust(file_size_digit) : '',
-    'total'
-  ].join(' ') if files_data.length > 1
+  if files_data.length > 1
+    print get_total_line_count(files_data).to_s.rjust(line_count_digit) + ' ' if output_line_count?(options)
+    print get_total_word_count(files_data).to_s.rjust(word_count_digit) + ' ' if output_word_count?(options)
+    print get_total_file_size(files_data).to_s.rjust(file_size_digit) + ' ' if output_file_size?(options)
+    puts 'total'
+  end
 end
 
 def get_total_line_count(files_data)
