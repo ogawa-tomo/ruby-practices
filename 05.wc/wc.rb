@@ -22,6 +22,12 @@ def output_files_info(files_data)
       file_data[:name]
     ].join(' ')
   end
+  puts [
+    files_data.map { |file_data| file_data[:content].lines.length }.sum,
+    files_data.map { |file_data| file_data[:content].split.length }.sum,
+    files_data.map { |file_data| file_data[:content].bytesize }.sum,
+    'total'
+  ].join(' ')
 end
 
 main
