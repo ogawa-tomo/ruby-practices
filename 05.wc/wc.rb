@@ -1,17 +1,13 @@
 require 'optparse'
 
 def main
+  options = ARGV.getopts('l', 'c', 'w')
   if !ARGV.empty?
-    options = ARGV.getopts('l', 'c', 'w')
     files_data = get_files_data(ARGV)
     output_files_info(files_data, options)
   else
     content = STDIN.read
-    puts [
-      content.lines.length,
-      content.split.length,
-      content.bytesize
-    ].join(' ')
+    output_stdin_info(content, options)
   end
 end
 
@@ -59,6 +55,12 @@ end
 
 def get_total_file_size(files_data)
   files_data.map { |file_data| file_data[:content].bytesize }.sum
+end
+
+def output_stdin_info(content, options)
+  print content.lines.length.to_s + ' ' if output_line_count?(options)
+  print content.split.length.to_s + ' ' if output_word_count?(options)
+  print content.bytesize if output_file_size?(options)
 end
 
 def output_line_count?(options)
