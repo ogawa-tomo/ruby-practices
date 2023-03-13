@@ -1,9 +1,18 @@
 require 'optparse'
 
 def main
-  options = ARGV.getopts('l', 'c', 'w')
-  files_data = get_files_data(ARGV)
-  output_files_info(files_data, options)
+  if !ARGV.empty?
+    options = ARGV.getopts('l', 'c', 'w')
+    files_data = get_files_data(ARGV)
+    output_files_info(files_data, options)
+  else
+    content = STDIN.read
+    puts [
+      content.lines.length,
+      content.split.length,
+      content.bytesize
+    ].join(' ')
+  end
 end
 
 def get_files_data(files_path)
