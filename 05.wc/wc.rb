@@ -9,7 +9,7 @@ def main
     files_data = get_files_data(ARGV)
     output_files_info(files_data, options)
   else
-    content = STDIN.read
+    content = $stdin.read
     output_stdin_info(content, options)
   end
 end
@@ -22,7 +22,7 @@ def get_files_data(files_path)
     end
     {
       name: file_path,
-      content: content
+      content:
     }
   end
 end
@@ -33,21 +33,21 @@ def output_files_info(files_data, options)
   byte_size_digit = get_total_byte_size(files_data).to_s.length
 
   files_data.each do |file_data|
-    print ' '
-    print file_data[:content].lines.length.to_s.rjust(line_count_digit) + ' ' if output_line_count?(options)
-    print file_data[:content].split.length.to_s.rjust(word_count_digit) + ' ' if output_word_count?(options)
-    print file_data[:content].bytesize.to_s.rjust(byte_size_digit) + ' ' if output_byte_size?(options)
+    print file_data.length > 1 ? '  ' : ' '
+    print "#{file_data[:content].lines.length.to_s.rjust(line_count_digit)} " if output_line_count?(options)
+    print "#{file_data[:content].split.length.to_s.rjust(word_count_digit + 1)} " if output_word_count?(options)
+    print "#{file_data[:content].bytesize.to_s.rjust(byte_size_digit)} " if output_byte_size?(options)
     print file_data[:name]
     puts ''
   end
 
-  if files_data.length > 1
-    print ' '
-    print get_total_line_count(files_data).to_s.rjust(line_count_digit) + ' ' if output_line_count?(options)
-    print get_total_word_count(files_data).to_s.rjust(word_count_digit) + ' ' if output_word_count?(options)
-    print get_total_byte_size(files_data).to_s.rjust(byte_size_digit) + ' ' if output_byte_size?(options)
-    puts 'total'
-  end
+  return unless files_data.length > 1
+
+  print '  '
+  print "#{get_total_line_count(files_data).to_s.rjust(line_count_digit)} " if output_line_count?(options)
+  print "#{get_total_word_count(files_data).to_s.rjust(word_count_digit + 1)} " if output_word_count?(options)
+  print "#{get_total_byte_size(files_data).to_s.rjust(byte_size_digit)} " if output_byte_size?(options)
+  puts 'total'
 end
 
 def get_total_line_count(files_data)
@@ -63,21 +63,21 @@ def get_total_byte_size(files_data)
 end
 
 def output_stdin_info(content, options)
-  print content.lines.length.to_s.rjust(7) + ' ' if output_line_count?(options)
-  print content.split.length.to_s.rjust(7) if output_word_count?(options)
+  print content.lines.length.to_s.rjust(7) if output_line_count?(options)
+  print content.split.length.to_s.rjust(8) if output_word_count?(options)
   print content.bytesize.to_s.rjust(8) if output_byte_size?(options)
 end
 
 def output_line_count?(options)
-  !options['l'] && !options['w'] && !options['c'] ? true : options['l'] 
+  !options['l'] && !options['w'] && !options['c'] ? true : options['l']
 end
 
 def output_word_count?(options)
-  !options['l'] && !options['w'] && !options['c'] ? true : options['w'] 
+  !options['l'] && !options['w'] && !options['c'] ? true : options['w']
 end
 
 def output_byte_size?(options)
-  !options['l'] && !options['w'] && !options['c'] ? true : options['c'] 
+  !options['l'] && !options['w'] && !options['c'] ? true : options['c']
 end
 
 main
