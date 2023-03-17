@@ -88,9 +88,19 @@ def get_total_byte_size(files_data)
 end
 
 def output_stdin_info(content, output_data)
-  print content.lines.length.to_s.rjust(7) if output_data[:line_count]
-  print content.split.length.to_s.rjust(8) if output_data[:word_count]
-  print content.bytesize.to_s.rjust(8) if output_data[:byte_size]
+  output_data_num = output_data.count { |k, v| v }
+
+  print_stdin_data(content.lines.length, output_data_num) if output_data[:line_count]
+  print_stdin_data(content.split.length, output_data_num) if output_data[:word_count]
+  print_stdin_data(content.bytesize, output_data_num) if output_data[:byte_size]
+end
+
+def print_stdin_data(data, output_data_num)
+  if output_data_num == 1
+    print data
+  else
+    print("#{data.to_s.rjust(7)} ")
+  end
 end
 
 main
