@@ -82,7 +82,7 @@ def print_stdin_data(data, output_data_num)
   if output_data_num == 1
     print data
   else
-    print("#{data.to_s.rjust(7)} ")
+    print "#{data.to_s.rjust(7)} "
   end
 end
 
