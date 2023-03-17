@@ -62,9 +62,9 @@ end
 
 def output_each_files_info(files_data, output_data, digit_data)
   files_data.each do |file_data|
-    print file_data.length > 1 ? '  ' : ' '
+    print first_blank(files_data, output_data, digit_data)
     print "#{file_data[:content].lines.length.to_s.rjust(digit_data[:line_count_digit])} " if output_data[:line_count]
-    print "#{file_data[:content].split.length.to_s.rjust(digit_data[:word_count_digit] + 1)} " if output_data[:word_count]
+    print "#{file_data[:content].split.length.to_s.rjust(digit_data[:word_count_digit])} " if output_data[:word_count]
     print "#{file_data[:content].bytesize.to_s.rjust(digit_data[:byte_size_digit])} " if output_data[:byte_size]
     print file_data[:name]
     puts ''
@@ -72,11 +72,96 @@ def output_each_files_info(files_data, output_data, digit_data)
 end
 
 def output_total_files_info(files_data, output_data, digit_data)
-  print '  '
+  print first_blank(files_data, output_data, digit_data)
   print "#{get_total_line_count(files_data).to_s.rjust(digit_data[:line_count_digit])} " if output_data[:line_count]
-  print "#{get_total_word_count(files_data).to_s.rjust(digit_data[:word_count_digit] + 1)} " if output_data[:word_count]
+  print "#{get_total_word_count(files_data).to_s.rjust(digit_data[:word_count_digit])} " if output_data[:word_count]
   print "#{get_total_byte_size(files_data).to_s.rjust(digit_data[:byte_size_digit])} " if output_data[:byte_size]
   puts 'total'
+end
+
+def first_blank(files_data, output_data, digit_data)
+
+  first_digit = if output_data[:line_count]
+                  digit_data[:line_count_digit]
+                elsif output_data[:word_count]
+                  digit_data[:word_count_digit]
+                elsif output_data[:byte_size_digit]
+                  digit_data[:byte_size_digit]
+                end
+
+
+  output_data_num = output_data.count { |k, v| v }
+
+  # 引数ファイルが1つ
+  if files_data.length ==1
+    # オプションがなしor3つ
+    if output_data_num == 3
+      if first_digit == 1
+        ' '
+      elsif first_digit == 2
+        ' '
+      elsif first_digit == 3
+        ' '
+      else
+        ' '
+      end
+    # オプションが1つ
+    elsif output_data_num == 1
+      if first_digit == 1
+      elsif first_digit == 2
+      elsif first_digit == 3
+      else
+      end
+    # オプションが2つ
+    else
+      if first_digit == 1
+        ' '
+      elsif first_digit == 2
+        ' '
+      elsif first_digit == 3
+        ' '
+      else
+        ' '
+      end
+    end
+  # 引数ファイルが2つ以上
+  else
+    # オプションがなしor3つ
+    if output_data_num == 3
+      if first_digit == 1
+        ' '
+      elsif first_digit == 2
+        ' '
+      elsif first_digit == 3
+        ' '
+      else
+        ' '
+      end
+    # オプションが1つ
+    elsif output_data_num == 1
+      if first_digit == 1
+        ' '
+      elsif first_digit == 2
+        ' '
+      elsif first_digit == 3
+        ' '
+      else
+        ' '
+      end
+    # オプションが2つ
+    else
+      if first_digit == 1
+        ' '
+      elsif first_digit == 2
+        ' '
+      elsif first_digit == 3
+        ' '
+      else
+        ' '
+      end
+    end
+  end
+
 end
 
 def get_total_line_count(files_data)
