@@ -8,11 +8,7 @@ def main
   output_data = get_output_data(options)
   if !ARGV.empty?
     files_data = get_files_data(ARGV)
-    digit_data = get_digit_data(files_data)
-    output_each_files_info(files_data, output_data, digit_data)
-    return unless files_data.length > 1
-
-    output_total_files_info(files_data, output_data, digit_data)
+    output_files_info(files_data, output_data)
   else
     content = $stdin.read
     output_stdin_info(content, output_data)
@@ -52,31 +48,32 @@ def get_files_data(files_path)
   end
 end
 
-def get_digit_data(files_data)
-  {
+def output_files_info(files_data, output_data)
+  digit_data = {
     line_count: get_total_line_count(files_data).to_s.length,
     word_count: get_total_word_count(files_data).to_s.length,
     byte_size: get_total_byte_size(files_data).to_s.length
   }
-end
-
-def output_each_files_info(files_data, output_data, digit_data)
   files_data.each do |file_data|
     print ' '
-    print "#{file_data[:content].lines.length.to_s.rjust(digit_data[:line_count])} " if output_data[:line_count]
-    print "#{file_data[:content].split.length.to_s.rjust(digit_data[:word_count])} " if output_data[:word_count]
-    print "#{file_data[:content].bytesize.to_s.rjust(digit_data[:byte_size])} " if output_data[:byte_size]
+    print_data(file_data[:content].lines.length.to_s.rjust(digit_data[:line_count]), output_data[:line_count])
+    print_data(file_data[:content].split.length.to_s.rjust(digit_data[:word_count]), output_data[:word_count])
+    print_data(file_data[:content].bytesize.to_s.rjust(digit_data[:byte_size]), output_data[:byte_size])
     print file_data[:name]
     puts ''
   end
+
+  return unless files_data.length > 1
+
+  print ' '
+  print_data(get_total_line_count(files_data).to_s.rjust(digit_data[:line_count]), output_data[:line_count])
+  print_data(get_total_word_count(files_data).to_s.rjust(digit_data[:word_count]), output_data[:word_count])
+  print_data(get_total_byte_size(files_data).to_s.rjust(digit_data[:byte_size]), output_data[:byte_size])
+  puts 'total'
 end
 
-def output_total_files_info(files_data, output_data, digit_data)
-  print ' '
-  print "#{get_total_line_count(files_data).to_s.rjust(digit_data[:line_count])} " if output_data[:line_count]
-  print "#{get_total_word_count(files_data).to_s.rjust(digit_data[:word_count])} " if output_data[:word_count]
-  print "#{get_total_byte_size(files_data).to_s.rjust(digit_data[:byte_size])} " if output_data[:byte_size]
-  puts 'total'
+def print_data(data, output)
+  print "#{data} " if output
 end
 
 def get_total_line_count(files_data)
