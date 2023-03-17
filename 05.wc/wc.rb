@@ -49,16 +49,15 @@ def get_files_data(files_path)
 end
 
 def output_files_info(files_data, output_data)
-  digit_data = {
-    line_count: get_total_line_count(files_data).to_s.length,
-    word_count: get_total_word_count(files_data).to_s.length,
-    byte_size: get_total_byte_size(files_data).to_s.length
-  }
+  line_count_digit = get_total_line_count(files_data).to_s.length
+  word_count_digit = get_total_word_count(files_data).to_s.length
+  byte_size_digit = get_total_byte_size(files_data).to_s.length
+
   files_data.each do |file_data|
     print ' '
-    print_data(file_data[:content].lines.length.to_s.rjust(digit_data[:line_count]), output_data[:line_count])
-    print_data(file_data[:content].split.length.to_s.rjust(digit_data[:word_count]), output_data[:word_count])
-    print_data(file_data[:content].bytesize.to_s.rjust(digit_data[:byte_size]), output_data[:byte_size])
+    print_data(file_data[:content].lines.length.to_s.rjust(line_count_digit), output_data[:line_count])
+    print_data(file_data[:content].split.length.to_s.rjust(word_count_digit), output_data[:word_count])
+    print_data(file_data[:content].bytesize.to_s.rjust(byte_size_digit), output_data[:byte_size])
     print file_data[:name]
     puts ''
   end
@@ -66,9 +65,9 @@ def output_files_info(files_data, output_data)
   return unless files_data.length > 1
 
   print ' '
-  print_data(get_total_line_count(files_data).to_s.rjust(digit_data[:line_count]), output_data[:line_count])
-  print_data(get_total_word_count(files_data).to_s.rjust(digit_data[:word_count]), output_data[:word_count])
-  print_data(get_total_byte_size(files_data).to_s.rjust(digit_data[:byte_size]), output_data[:byte_size])
+  print_data(get_total_line_count(files_data).to_s.rjust(line_count_digit), output_data[:line_count])
+  print_data(get_total_word_count(files_data).to_s.rjust(word_count_digit), output_data[:word_count])
+  print_data(get_total_byte_size(files_data).to_s.rjust(byte_size_digit), output_data[:byte_size])
   puts 'total'
 end
 
