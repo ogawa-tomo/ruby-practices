@@ -10,6 +10,7 @@ pointer = 0
 frames = []
 loop do
   break if data[pointer].nil?
+
   if data[pointer] == 'X'
     frames << Frame.new(10, 0, frame_num)
     pointer += 1
@@ -22,9 +23,9 @@ loop do
   frame_num += 1
 end
 
-point = 0
+score = 0
 frames.each_with_index do |frame, i|
-  point += frame.get_point(frames[i + 1], frames[i + 2])
+  score += frame.get_score(frames[i + 1], frames[i + 2])
 end
 
-puts point
+puts score

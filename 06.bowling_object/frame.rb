@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Frame
-
   attr_reader :first_shot, :second_shot
 
   def initialize(first_shot, second_shot, frame_num)
@@ -9,17 +8,18 @@ class Frame
     @second_shot = second_shot
     @frame_num = frame_num
   end
-  
+
   def strike?
     @first_shot == 10
   end
 
   def spare?
     return false if strike?
+
     @first_shot + @second_shot == 10
   end
 
-  def get_point(next_frame, frame_after_next)
+  def get_score(next_frame, frame_after_next)
     if @frame_num >= 9
       @first_shot + @second_shot
     elsif strike?
