@@ -5,7 +5,7 @@ require_relative 'frame'
 
 data = ARGV[0].split(',')
 
-frame_num = 0
+frame_num = 1
 pointer = 0
 frames = []
 loop do

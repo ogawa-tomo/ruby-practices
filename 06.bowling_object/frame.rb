@@ -20,7 +20,7 @@ class Frame
   end
 
   def get_score(next_frame, frame_after_next)
-    if @frame_num >= 9
+    if @frame_num >= 10
       @first_shot + @second_shot
     elsif strike?
       if next_frame.strike?
