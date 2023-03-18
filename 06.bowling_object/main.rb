@@ -3,23 +3,23 @@
 
 require_relative 'frame'
 
-score = ARGV[0]
-scores = score.split(',')
+data = ARGV[0].split(',')
 
-shots = []
-scores.each do |s|
-  if s == 'X' # strike
-    shots << 10
-    shots << 0
-  else
-    shots << s.to_i
-  end
-end
-shots << 0 if shots.length.odd?
-
+frame_num = 0
+pointer = 0
 frames = []
-shots.each_slice(2).each_with_index do |s, i|
-  frames << Frame.new(s[0], s[1], i)
+loop do
+  break if data[pointer].nil?
+  if data[pointer] == 'X'
+    frames << Frame.new(10, 0, frame_num)
+    pointer += 1
+  else
+    first_shot = data[pointer].to_i
+    second_shot = data[pointer + 1].to_i || 0
+    frames << Frame.new(first_shot, second_shot, frame_num)
+    pointer += 2
+  end
+  frame_num += 1
 end
 
 point = 0
