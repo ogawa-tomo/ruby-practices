@@ -16,16 +16,24 @@ def make_frames(data)
   pointer = 0
   frames = []
   loop do
-    break if data[pointer].nil?
+
+    if frame_num == 10
+      frames << Frame.new(
+        Shot.new(data[pointer]),
+        Shot.new(data[pointer + 1]),
+        Shot.new(data[pointer + 2])
+      )
+      break
+    end
 
     shot = Shot.new(data[pointer])
 
     if shot.strike?
-      frames << Frame.new(shot, Shot.new(0), frame_num)
+      frames << Frame.new(shot, Shot.new(nil), Shot.new(nil))
       pointer += 1
     else
       second_shot = Shot.new(data[pointer + 1])
-      frames << Frame.new(shot, second_shot, frame_num)
+      frames << Frame.new(shot, second_shot, Shot.new(nil))
       pointer += 2
     end
     frame_num += 1
@@ -35,8 +43,17 @@ end
 
 def calc_score(frames)
   score = 0
-  frames.each_with_index do |frame, i|
-    score += frame.get_score(frames[i + 1], frames[i + 2])
+  frames.each_with_index do |frame, frame_num|
+
+    score += frame.total_score
+    break if frame_num == 9
+    
+    if frame.strike?
+      score += frames[frame_num + 1].first_and_second_shot_score
+      score += frames[frame_num + 2].first_shot_score if frames[frame_num + 1].strike?
+    elsif frame.spare?
+      score += frames[frame_num + 1].first_shot_score
+    end
   end
   return score
 end

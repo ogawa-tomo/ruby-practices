@@ -3,10 +3,10 @@
 class Frame
   attr_reader :first_shot, :second_shot
 
-  def initialize(first_shot, second_shot, frame_num)
+  def initialize(first_shot, second_shot, third_shot)
     @first_shot = first_shot
     @second_shot = second_shot
-    @frame_num = frame_num
+    @third_shot = third_shot
   end
 
   def strike?
@@ -20,26 +20,14 @@ class Frame
   end
 
   def total_score
-    @first_shot.score + @second_shot.score
+    @first_shot.score + @second_shot.score + @third_shot.score
   end
 
   def first_shot_score
     @first_shot.score
   end
 
-  def get_score(next_frame, frame_after_next)
-    if @frame_num >= 10
-      self.total_score
-    elsif strike?
-      if next_frame.strike?
-        self.total_score + next_frame.total_score + frame_after_next.first_shot_score
-      else
-        self.total_score + next_frame.total_score
-      end
-    elsif spare?
-      self.total_score + next_frame.first_shot_score
-    else
-      self.total_score
-    end
+  def first_and_second_shot_score
+    @first_shot.score + @second_shot.score
   end
 end
