@@ -43,16 +43,20 @@ end
 
 def calc_score(frames)
   score = 0
-  frames.each_with_index do |frame, frame_num|
+  frames.each_with_index do |frame, i|
+    frame_num = i + 1
 
     score += frame.total_score
-    break if frame_num == 9
+    break if frame_num == 10
+
+    next_frame = frames[i + 1]
+    frame_after_next = frames[i + 2]
     
     if frame.strike?
-      score += frames[frame_num + 1].first_and_second_shot_score
-      score += frames[frame_num + 2].first_shot_score if frames[frame_num + 1].strike? && frame_num <= 7
+      score += next_frame.first_and_second_shot_score
+      score += frame_after_next.first_shot_score if next_frame.strike? && frame_num <= 8
     elsif frame.spare?
-      score += frames[frame_num + 1].first_shot_score
+      score += next_frame.first_shot_score
     end
   end
   return score
