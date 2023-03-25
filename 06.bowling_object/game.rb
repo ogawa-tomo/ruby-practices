@@ -1,11 +1,9 @@
-
 # frozen_string_literal: true
 
 require_relative 'shot'
 require_relative 'frame'
 
 class Game
-
   def initialize(mark_data)
     @frames = make_frames(mark_data)
   end
@@ -20,7 +18,7 @@ class Game
 
       next_frame = @frames[i + 1]
       frame_after_next = @frames[i + 2]
-      
+
       if frame.strike?
         score += next_frame.first_and_second_shot_score
         score += frame_after_next.first_shot_score if next_frame.strike? && frame_num <= 8
@@ -60,6 +58,6 @@ class Game
       end
       frame_num += 1
     end
-    return frames
+    frames
   end
 end
