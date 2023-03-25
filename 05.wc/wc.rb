@@ -34,6 +34,14 @@ def output_files_info(files_data, options)
     get_total_byte_size(files_data).to_s.length
   ].max
 
+  output_each_file_info(files_data, digit, options)
+
+  return unless files_data.length > 1
+
+  output_total_files_info(files_data, digit, options)
+end
+
+def output_each_file_info(files_data, digit, options)
   files_data.each do |file_data|
     print "#{file_data[:content].lines.length.to_s.rjust(digit)} " if output_line_count?(options)
     print "#{file_data[:content].split.length.to_s.rjust(digit)} " if output_word_count?(options)
@@ -41,9 +49,9 @@ def output_files_info(files_data, options)
     print file_data[:name]
     puts ''
   end
+end
 
-  return unless files_data.length > 1
-
+def output_total_files_info(files_data, digit, options)
   print "#{get_total_line_count(files_data).to_s.rjust(digit)} " if output_line_count?(options)
   print "#{get_total_word_count(files_data).to_s.rjust(digit)} " if output_word_count?(options)
   print "#{get_total_byte_size(files_data).to_s.rjust(digit)} " if output_byte_size?(options)
