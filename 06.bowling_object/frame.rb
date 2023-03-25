@@ -10,17 +10,21 @@ class Frame
   end
 
   def strike?
-    @first_shot == 10
+    @first_shot.score == 10
   end
 
   def spare?
     return false if strike?
 
-    @first_shot + @second_shot == 10
+    @first_shot.score + @second_shot.score == 10
   end
 
   def total_score
-    @first_shot + @second_shot
+    @first_shot.score + @second_shot.score
+  end
+
+  def first_shot_score
+    @first_shot.score
   end
 
   def get_score(next_frame, frame_after_next)
@@ -28,12 +32,12 @@ class Frame
       self.total_score
     elsif strike?
       if next_frame.strike?
-        self.total_score + next_frame.total_score + frame_after_next.first_shot
+        self.total_score + next_frame.total_score + frame_after_next.first_shot_score
       else
         self.total_score + next_frame.total_score
       end
     elsif spare?
-      self.total_score + next_frame.first_shot
+      self.total_score + next_frame.first_shot_score
     else
       self.total_score
     end
