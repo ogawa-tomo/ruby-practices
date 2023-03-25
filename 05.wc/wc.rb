@@ -87,15 +87,19 @@ def print_stdin_data(data, output_data_num)
 end
 
 def output_line_count?(options)
-  !options['l'] && !options['w'] && !options['c'] ? true : options['l']
+  no_options?(options) ? true : options['l']
 end
 
 def output_word_count?(options)
-  !options['l'] && !options['w'] && !options['c'] ? true : options['w']
+  no_options?(options) ? true : options['w']
 end
 
 def output_byte_size?(options)
-  !options['l'] && !options['w'] && !options['c'] ? true : options['c']
+  no_options?(options) ? true : options['c']
+end
+
+def no_options?(options)
+  !options['l'] && !options['w'] && !options['c']
 end
 
 main
