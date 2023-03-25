@@ -4,8 +4,8 @@ require_relative 'shot'
 require_relative 'frame'
 
 class Game
-  def initialize(mark_data)
-    @frames = make_frames(mark_data)
+  def initialize(marks)
+    @frames = make_frames(marks)
   end
 
   def calc_score
@@ -31,28 +31,23 @@ class Game
 
   private
 
-  def make_frames(data)
+  def make_frames(marks)
     frame_num = 1
     pointer = 0
     frames = []
+    shots = marks.map { |mark| Shot.new(mark) }
+
     loop do
       if frame_num == 10
-        frames << Frame.new(
-          Shot.new(data[pointer]),
-          Shot.new(data[pointer + 1]),
-          Shot.new(data[pointer + 2])
-        )
+        frames << Frame.new(shots[pointer], shots[pointer + 1], shots[pointer + 2])
         break
       end
 
-      shot = Shot.new(data[pointer])
-
-      if shot.strike?
-        frames << Frame.new(shot, Shot.new(nil), Shot.new(nil))
+      if shots[pointer].strike?
+        frames << Frame.new(shots[pointer], Shot.new(nil), Shot.new(nil))
         pointer += 1
       else
-        second_shot = Shot.new(data[pointer + 1])
-        frames << Frame.new(shot, second_shot, Shot.new(nil))
+        frames << Frame.new(shots[pointer], shots[pointer + 1], Shot.new(nil))
         pointer += 2
       end
       frame_num += 1
