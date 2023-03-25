@@ -55,15 +55,15 @@ def print_file_data(data, output)
 end
 
 def get_total_line_count(files_data)
-  files_data.map { |file_data| file_data[:content].lines.length }.sum
+  files_data.sum { |file_data| file_data[:content].lines.length }
 end
 
 def get_total_word_count(files_data)
-  files_data.map { |file_data| file_data[:content].split.length }.sum
+  files_data.sum { |file_data| file_data[:content].split.length }
 end
 
 def get_total_byte_size(files_data)
-  files_data.map { |file_data| file_data[:content].bytesize }.sum
+  files_data.sum { |file_data| file_data[:content].bytesize }
 end
 
 def output_stdin_info(content, options)
