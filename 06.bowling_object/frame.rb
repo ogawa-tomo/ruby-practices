@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Frame
-  attr_reader :first_shot, :second_shot
-
   def initialize(first_shot, second_shot, third_shot)
     @first_shot = first_shot
     @second_shot = second_shot
