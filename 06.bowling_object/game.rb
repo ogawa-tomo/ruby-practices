@@ -26,7 +26,7 @@ class Game
         score += next_frame.first_shot_score
       end
     end
-    return score
+    score
   end
 
   private
@@ -36,7 +36,6 @@ class Game
     pointer = 0
     frames = []
     loop do
-
       if frame_num == 10
         frames << Frame.new(
           Shot.new(data[pointer]),
