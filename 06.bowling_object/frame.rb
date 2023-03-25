@@ -19,19 +19,23 @@ class Frame
     @first_shot + @second_shot == 10
   end
 
+  def total_score
+    @first_shot + @second_shot
+  end
+
   def get_score(next_frame, frame_after_next)
     if @frame_num >= 10
-      @first_shot + @second_shot
+      self.total_score
     elsif strike?
       if next_frame.strike?
-        20 + frame_after_next.first_shot
+        self.total_score + next_frame.total_score + frame_after_next.first_shot
       else
-        10 + next_frame.first_shot + next_frame.second_shot
+        self.total_score + next_frame.total_score
       end
     elsif spare?
-      10 + next_frame.first_shot
+      self.total_score + next_frame.first_shot
     else
-      @first_shot + @second_shot
+      self.total_score
     end
   end
 end
