@@ -50,12 +50,11 @@ def calc_score(frames)
     
     if frame.strike?
       score += frames[frame_num + 1].first_and_second_shot_score
-      score += frames[frame_num + 2].first_shot_score if frames[frame_num + 1].strike?
+      score += frames[frame_num + 2].first_shot_score if frames[frame_num + 1].strike? && frame_num <= 7
     elsif frame.spare?
       score += frames[frame_num + 1].first_shot_score
     end
   end
   return score
 end
-
 main
