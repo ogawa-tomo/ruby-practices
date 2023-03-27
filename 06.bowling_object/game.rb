@@ -32,14 +32,13 @@ class Game
   private
 
   def make_frames(marks)
-    frame_num = 1
     pointer = 0
     frames = []
     shots = marks.map { |mark| Shot.new(mark) }
 
-    loop do
+    (1..10).each do |frame_num|
       if frame_num == 10
-        frames << Frame.new(shots[pointer], shots[pointer + 1], shots[pointer + 2])
+        frames << Frame.new(shots[pointer], shots[pointer + 1], shots[pointer + 2] || Shot.new(nil))
         break
       end
 
@@ -50,7 +49,6 @@ class Game
         frames << Frame.new(shots[pointer], shots[pointer + 1], Shot.new(nil))
         pointer += 2
       end
-      frame_num += 1
     end
     frames
   end
