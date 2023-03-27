@@ -8,14 +8,7 @@ require_relative 'long_outputter'
 
 def main
   options = ARGV.getopts('a', 'r', 'l')
-  files = get_files(options['a'], options['r'])
-  options['l'] ? LongOutputter.new(files).output : DefaultOutputter.new(files).output
-end
-
-def get_files(all, reverse)
-  files = all ? Dir.glob('*', File::FNM_DOTMATCH) : Dir.glob('*')
-  files.reverse! if reverse
-  files
+  options['l'] ? LongOutputter.new(options['a'], options['r']).output : DefaultOutputter.new(options['a'], options['r']).output
 end
 
 main

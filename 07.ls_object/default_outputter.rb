@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-class DefaultOutputter
+require_relative 'outputter'
+
+class DefaultOutputter < Outputter
   COLUMN_NUM = 3
 
-  def initialize(files)
-    @files = files
+  def initialize(all, reverse)
+    super(all, reverse)
     @rows_num = get_rows_num
     @column_width = get_column_width
   end
