@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-require_relative 'outputter'
-class LongOutputter < Outputter
+require_relative 'outputter_base'
+class LongOutputter < OutputterBase
   def output
     max_digit_file_link = @files.map { |file| File.stat(file).nlink }.max.to_s.length
     max_word_count_file_owner = @files.map { |file| Etc.getpwuid(File.stat(file).uid).name.size }.max

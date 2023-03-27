@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Outputter
+class OutputterBase
   def initialize(all, reverse)
     @files = get_files(all, reverse)
   end

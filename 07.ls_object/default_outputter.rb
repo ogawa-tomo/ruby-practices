@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'outputter'
+require_relative 'outputter_base'
 
-class DefaultOutputter < Outputter
+class DefaultOutputter < OutputterBase
   COLUMN_NUM = 3
 
   def initialize(all, reverse)
