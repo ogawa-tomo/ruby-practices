@@ -20,7 +20,7 @@ class LongFilesDataOutputter
         data.owner.ljust(max_word_count_file_owner),
         data.group.ljust(max_word_count_file_group),
         data.size.to_s.rjust(max_digit_file_size),
-        data.ctime,
+        data.mtime,
         data.name
       ].join(' ')
     end

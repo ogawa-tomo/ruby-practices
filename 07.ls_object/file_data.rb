@@ -43,8 +43,8 @@ class FileData
     @stat.size
   end
 
-  def ctime
-    @stat.ctime.strftime('%b %e %H:%M')
+  def mtime
+    @stat.mtime.strftime('%b %e %H:%M')
   end
 
   def blocks
