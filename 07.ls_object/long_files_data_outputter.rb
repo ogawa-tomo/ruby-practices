@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class LongOutputter
+class LongFilesDataOutputter
   def initialize(files_data)
     @files_data = files_data
   end

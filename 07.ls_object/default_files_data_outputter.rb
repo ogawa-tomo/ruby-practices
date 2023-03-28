@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DefaultOutputter
+class DefaultFilesDataOutputter
   COLUMN_NUM = 3
 
   def initialize(files_data)
