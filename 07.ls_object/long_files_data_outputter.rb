@@ -6,12 +6,12 @@ class LongFilesDataOutputter
   end
 
   def output
-    max_digit_file_link = @files_data.map { |data| data.nlink }.max.to_s.length
+    max_digit_file_link = @files_data.map(&:nlink).max.to_s.length
     max_word_count_file_owner = @files_data.map { |data| data.owner.size }.max
     max_word_count_file_group = @files_data.map { |data| data.group.size }.max
-    max_digit_file_size = @files_data.map { |data| data.size }.max.to_s.length
+    max_digit_file_size = @files_data.map(&:size).max.to_s.length
 
-    puts "total #{@files_data.map { |data| data.blocks }.sum}"
+    puts "total #{@files_data.map(&:blocks).sum}"
     @files_data.each do |data|
       print data.ftype
       puts [
