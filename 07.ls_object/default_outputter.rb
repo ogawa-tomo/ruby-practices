@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-require_relative 'outputter_base'
-
-class DefaultOutputter < OutputterBase
+class DefaultOutputter
   COLUMN_NUM = 3
+
+  def initialize(files)
+    @files = files
+  end
 
   def output
     (1..rows_num).each do |r|
