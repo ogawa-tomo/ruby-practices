@@ -22,15 +22,15 @@ class DefaultOutputter
   private
 
   def column_width
-    @files.max_by(&:length).length + 1
+    @column_width ||= @files.max_by(&:length).length + 1
+  end
+
+  def rows_num
+    @rows_num ||= @files.length.fdiv(COLUMN_NUM).ceil
   end
 
   def print_file(file)
     space_num = column_width - file.length
     print file + ' ' * space_num
-  end
-
-  def rows_num
-    @files.length.fdiv(COLUMN_NUM).ceil
   end
 end
