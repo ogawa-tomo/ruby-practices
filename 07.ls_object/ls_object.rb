@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'optparse'
-require 'etc'
 
 require_relative 'files_data_outputter'
 
